@@ -26,11 +26,27 @@ export const calendarSlice = createSlice({
         setActiveEvent: (state, { payload }) => {
             state.activeEvent = payload
         },
-        createEvent:(state, action) =>{
-            state.events.push(action.payload)
+        createEvent: (state, { payload }) => {
+            state.events.push(payload)
+            state.activeEvent = null
+        },
+        updateEvent: (state, { payload }) => {
+            state.events = state.events.map(event => {
+                if (event._id === payload._id) {
+                    return payload
+                }
+                return event
+            })
+        },
+        deleteEvent: (state) => {
+            if (state.activeEvent) {
+                state.events = state.events.filter(event => event._id !== state.activeEvent._id)
+                state.activeEvent = null
+
+            }
         }
     }
 })
 
 
-export const { loadEvents, setActiveEvent } = calendarSlice.actions
+export const { loadEvents, setActiveEvent, createEvent, updateEvent, deleteEvent } = calendarSlice.actions
