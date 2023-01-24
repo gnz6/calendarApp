@@ -37,7 +37,7 @@ const register = async (req, res = response) => {
         console.log(error)
         res.status(500).json({
             ok: false,
-            msg: "Please contact administrator"
+            message: "Please contact administrator"
 
         })
     }
@@ -48,10 +48,10 @@ const login = async (req, res = response) => {
 
     try {
         const user = await User.findOne({ email })
-        if (!user) return res.status(400).json({ ok: false, msg: "User not found" })
+        if (!user) return res.status(400).json({ ok: false, message: "User not found" })
 
         const passwordMatch = bcrypt.compareSync(password, user.password)
-        if (!passwordMatch) return res.status(400).json({ ok: false, msg: "Invalid password" })
+        if (!passwordMatch) return res.status(400).json({ ok: false, message: "Invalid password" })
 
         const token = await createToken(user._id, user.name)
 
@@ -66,7 +66,7 @@ const login = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: "Please contact administrator"
+            message: "Please contact administrator"
         })
     }
 }
