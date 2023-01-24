@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gnz6/calendarApp_backend.git"
+    "url": "git+https://github.com/gnz6/backend_calendar"
   },
   "author": "gnz6",
   "license": "ISC",
