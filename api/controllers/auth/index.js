@@ -1,6 +1,5 @@
 const { response } = require("express")
 const { createToken } = require("../../helpers/jwt")
-const cors = require("cors");
 
 
 const bcrypt = require("bcrypt")
