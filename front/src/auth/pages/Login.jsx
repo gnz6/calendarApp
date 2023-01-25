@@ -1,6 +1,8 @@
 import "./Login.css"
 import { useForm } from "../../hooks/useForm";
-
+import { useAuthStore } from "../../calendar/hooks/useAuthStore";
+import { useEffect } from "react";
+import Swal from "sweetalert2"
 
 const loginForm = {
   loginEmail: "",
@@ -15,17 +17,39 @@ const registerForm = {
   registerPassword2: ""
 }
 
+
 export const Login = () => {
 
+  const {startLogin, errorMessages, startRegister} = useAuthStore()
   const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginForm)
   const { registerName, registerEmail, registerPassword, registerPassword2, onInputChange: onRegisterInputChange } = useForm(registerForm)
+
+  const loginSubmit = (e)=>{
+    e.preventDefault();
+    startLogin({email: loginEmail, password: loginPassword})
+
+  }
+
+  const registerSubmit = (e) =>{
+    e.preventDefault();
+    if(registerPassword !== registerPassword2){
+      Swal.fire("Password Registration Error", "Passwords doesnt mathc", "error" )
+    }
+    startRegister({name: registerName, email: registerEmail, password: registerPassword})
+  }
+
+  useEffect(()=>{
+    if(errorMessages !== null) {
+      Swal.fire("Authentication Error", errorMessages, "error")
+    }
+  },[errorMessages])
 
   return (
     <div className="container login-container">
       <div className="row">
         <div className="col-md-6 login-form-1">
           <h3>Ingreso</h3>
-          <form>
+          <form onSubmit={loginSubmit}>
             <div className="form-group mb-2">
               <input
                 type="text"
@@ -58,7 +82,7 @@ export const Login = () => {
 
         <div className="col-md-6 login-form-2">
           <h3>Registro</h3>
-          <form>
+          <form onSubmit={registerSubmit}>
             <div className="form-group mb-2">
               <input
                 type="text"
