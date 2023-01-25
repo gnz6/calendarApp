@@ -1,7 +1,24 @@
 import "./Login.css"
+import { useForm } from "../../hooks/useForm";
+
+
+const loginForm = {
+  loginEmail: "",
+  loginPassword: "",
+}
+
+
+const registerForm = {
+  regiserName: "",
+  registerEmail: "",
+  registerPassword: "",
+  registerPassword2: ""
+}
 
 export const Login = () => {
 
+  const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginForm)
+  const { registerName, registerEmail, registerPassword, registerPassword2, onInputChange: onRegisterInputChange } = useForm(registerForm)
 
   return (
     <div className="container login-container">
@@ -14,6 +31,9 @@ export const Login = () => {
                 type="text"
                 className="form-control"
                 placeholder="Correo"
+                name="loginEmail"
+                onChange={onLoginInputChange}
+
               />
             </div>
             <div className="form-group mb-2">
@@ -21,6 +41,9 @@ export const Login = () => {
                 type="password"
                 className="form-control"
                 placeholder="Contraseña"
+                name="loginPassword"
+                onChange={onLoginInputChange}
+
               />
             </div>
             <div className="d-grid gap-2">
@@ -41,6 +64,8 @@ export const Login = () => {
                 type="text"
                 className="form-control"
                 placeholder="Nombre"
+                name="registerName"
+                onChange={onRegisterInputChange}
               />
             </div>
             <div className="form-group mb-2">
@@ -48,6 +73,8 @@ export const Login = () => {
                 type="email"
                 className="form-control"
                 placeholder="Correo"
+                name="registerEmail"
+                onChange={onRegisterInputChange}
               />
             </div>
             <div className="form-group mb-2">
@@ -55,6 +82,8 @@ export const Login = () => {
                 type="password"
                 className="form-control"
                 placeholder="Contraseña"
+                name="registerPassword"
+                onChange={onRegisterInputChange}
               />
             </div>
 
@@ -63,6 +92,9 @@ export const Login = () => {
                 type="password"
                 className="form-control"
                 placeholder="Repita la contraseña"
+                name="registerPassword2"
+                onChange={onRegisterInputChange}
+
               />
             </div>
 
